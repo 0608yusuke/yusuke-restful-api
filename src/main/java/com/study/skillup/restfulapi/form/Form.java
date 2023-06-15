@@ -1,3 +1,13 @@
 package com.study.skillup.restfulapi.form;
 
-public class Form {}
+import lombok.Data;
+
+@Data
+public class Form {
+
+  private String title;
+
+  private String description;
+
+  private int price;
+}
