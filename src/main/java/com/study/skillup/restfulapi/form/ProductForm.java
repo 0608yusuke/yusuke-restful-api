@@ -3,11 +3,11 @@ package com.study.skillup.restfulapi.form;
 import lombok.Data;
 
 @Data
-public class Form {
+public class ProductForm {
 
   private String title;
 
   private String description;
 
-  private int price;
+  private Long price;
 }
