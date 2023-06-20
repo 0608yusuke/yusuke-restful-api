@@ -27,14 +27,18 @@ public class ProductService {
   }
 
   public Product update(long id, ProductForm productForm) {
-    Product updateproduct = productRepository.findById(id);
-    
-    updateproduct.setTitle(productForm.getTitle());
-    updateproduct.setDescription(productForm.getDescription());
-    updateproduct.setPrice(productForm.getPrice().intValue());
-    updateproduct.setUpdateTime(LocalDateTime.now());
-    
-    return productRepository.save(updateproduct);
+    Product updateProduct = productRepository.findById(id);
+
+    updateProduct.setTitle(productForm.getTitle());
+    updateProduct.setDescription(productForm.getDescription());
+    updateProduct.setPrice(productForm.getPrice().intValue());
+    updateProduct.setUpdateTime(LocalDateTime.now());
+
+    return productRepository.save(updateProduct);
   }
-  
+
+  public void delete(long id) {
+    Product deleteProduct = productRepository.findById(id);
+    productRepository.delete(deleteProduct);
+  }
 }
