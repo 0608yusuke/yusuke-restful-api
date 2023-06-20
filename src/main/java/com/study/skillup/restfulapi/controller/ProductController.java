@@ -20,7 +20,7 @@ public class ProductController {
   }
 
   @PostMapping()
-  public Product register(ProductForm productForm) {
+  public Product register(@RequestBody ProductForm productForm) {
     return productService.register(productForm);
   }
 }

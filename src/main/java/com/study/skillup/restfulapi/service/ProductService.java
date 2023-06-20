@@ -14,7 +14,7 @@ public class ProductService {
   private final ProductRepository productRepository;
 
   public List<Product> findByTitle(String title) {
-    return productRepository.findByTitle(title);
+    return productRepository.findByTitleContainingOrderByUpdateTimeDesc(title);
   }
 
   public Product register(ProductForm productForm) {
