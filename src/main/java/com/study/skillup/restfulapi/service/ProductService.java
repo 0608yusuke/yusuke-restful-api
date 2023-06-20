@@ -17,6 +17,10 @@ public class ProductService {
     return productRepository.findByTitleContainingOrderByUpdateTimeDesc(title);
   }
 
+  public Product findById(long id) {
+    return productRepository.findById(id);
+  }
+
   public Product register(ProductForm productForm) {
     return productRepository.save(Product.register(productForm));
   }

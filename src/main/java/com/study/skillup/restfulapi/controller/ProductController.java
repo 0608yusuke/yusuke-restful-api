@@ -19,6 +19,11 @@ public class ProductController {
     return productService.findByTitle(title);
   }
 
+  @GetMapping("/{id}")
+  public Product getById(@PathVariable(value="id") Long id) {
+    return productService.findById(id);
+  }
+
   @PostMapping()
   public Product register(@RequestBody ProductForm productForm) {
     return productService.register(productForm);
