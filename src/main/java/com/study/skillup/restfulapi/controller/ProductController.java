@@ -14,18 +14,24 @@ public class ProductController {
 
   private final ProductService productService;
 
+  @PostMapping()
+  public Product register(@RequestBody ProductForm productForm) {
+    return productService.register(productForm);
+  }
+
   @GetMapping()
   public List<Product> getSelectedByTitle(@RequestParam String title) {
     return productService.findByTitle(title);
   }
 
   @GetMapping("/{id}")
-  public Product getById(@PathVariable(value="id") Long id) {
+  public Product getById(@PathVariable(value = "id") Long id) {
     return productService.findById(id);
   }
 
-  @PostMapping()
-  public Product register(@RequestBody ProductForm productForm) {
-    return productService.register(productForm);
+  @PutMapping("/{id}")
+  public Product update(@PathVariable(value = "id") Long id, @RequestBody ProductForm productForm){
+    return productService.update(id,productForm);
   }
+  
 }
