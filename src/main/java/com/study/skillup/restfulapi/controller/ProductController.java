@@ -6,15 +6,16 @@ import com.study.skillup.restfulapi.service.ProductService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
+// @MultipartConfig(location = )
 public class ProductController {
 
   private final ProductService productService;
 
-  @PostMapping()
   public Product register(@RequestBody ProductForm productForm) {
     return productService.register(productForm);
   }
@@ -37,5 +38,10 @@ public class ProductController {
   @DeleteMapping("/{id}")
   public void delete(@PathVariable(value = "id") Long id) {
     productService.delete(id);
+  }
+
+  @PatchMapping("/{id}/images")
+  public void test(@RequestPart("file") MultipartFile file) {
+    String a;
   }
 }
