@@ -60,14 +60,18 @@ public class ProductService {
     }
   }
 
-  public void storageFile(long id, MultipartFile file) {
+  public void storageImgFile(long id, MultipartFile file) {
     UUID uuid = UUID.randomUUID();
     String str = uuid.toString();
+
+    String fileName = file.getOriginalFilename();
+    String extension = fileName.substring(fileName.lastIndexOf("."));
+
     Path path =
         Path.of(
             "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
             "商品" + id,
-            str);
+            str + extension);
     try {
       Files.copy(file.getInputStream(), path);
     } catch (IOException e) {

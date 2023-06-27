@@ -45,7 +45,7 @@ public class ProductController {
   public void registerImg(
       @PathVariable(value = "id") Long id, @RequestPart("productImage") MultipartFile file) {
     productService.createIdFolder(id);
-    productService.storageFile(id, file);
+    productService.storageImgFile(id, file);
     // productService.createImgPath(id, fileForm);
   }
 }
