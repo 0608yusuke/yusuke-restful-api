@@ -61,7 +61,7 @@ public class ProductService {
     Product product = productRepository.findById(id);
     Path path =
         Path.of(
-            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/" + product.getTitle());
+            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/" + product.getTitle(), fileName);
     try {
       Files.copy(file.getInputStream(), path);
     } catch (IOException e) {
