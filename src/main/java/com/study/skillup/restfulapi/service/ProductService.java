@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,11 +58,14 @@ public class ProductService {
   }
 
   public void storageFile(long id, MultipartFile file) {
-    String fileName = file.getOriginalFilename();
+    UUID uuid = UUID.randomUUID();
+    String str = uuid.toString();
     Product product = productRepository.findById(id);
     Path path =
         Path.of(
-            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/" + product.getTitle(), fileName);
+            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/"
+                + product.getTitle(),
+            str);
     try {
       Files.copy(file.getInputStream(), path);
     } catch (IOException e) {
