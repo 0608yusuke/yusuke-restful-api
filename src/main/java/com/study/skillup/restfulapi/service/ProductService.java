@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -18,11 +19,14 @@ public class ProductService {
 
   private final ProductRepository productRepository;
 
-  public Product register(ProductForm productForm){
-    try{
-      Path path = Paths.get("/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/" + productForm.getTitle());
-      Files.createFile(path);
-    }catch (IOException e){
+  public Product register(ProductForm productForm) {
+    try {
+      Path path =
+          Paths.get(
+              "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/"
+                  + productForm.getTitle());
+      Files.createDirectory(path);
+    } catch (IOException e) {
       e.printStackTrace();
     }
     return productRepository.save(Product.register(productForm));
@@ -50,5 +54,18 @@ public class ProductService {
   public void delete(long id) {
     Product deleted_product = productRepository.findById(id);
     productRepository.delete(deleted_product);
+  }
+
+  public void storageFile(long id, MultipartFile file) {
+    String fileName = file.getOriginalFilename();
+    Product product = productRepository.findById(id);
+    Path path =
+        Path.of(
+            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/" + product.getTitle());
+    try {
+      Files.copy(file.getInputStream(), path);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 }
