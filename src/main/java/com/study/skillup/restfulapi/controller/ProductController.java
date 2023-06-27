@@ -44,6 +44,7 @@ public class ProductController {
   @PatchMapping(value = "/{id}/images")
   public void registerImg(
       @PathVariable(value = "id") Long id, @RequestPart("productImage") MultipartFile file) {
+    productService.createIdFolder(id);
     productService.storageFile(id, file);
     // productService.createImgPath(id, fileForm);
   }

@@ -21,15 +21,6 @@ public class ProductService {
   private final ProductRepository productRepository;
 
   public Product register(ProductForm productForm) {
-    try {
-      Path path =
-          Paths.get(
-              "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/"
-                  + productForm.getTitle());
-      Files.createDirectory(path);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
     return productRepository.save(Product.register(productForm));
   }
 
@@ -57,14 +48,25 @@ public class ProductService {
     productRepository.delete(deleted_product);
   }
 
+  public void createIdFolder(long id) {
+    try {
+      Path path =
+          Paths.get(
+              "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
+              "商品" + id);
+      Files.createDirectory(path);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   public void storageFile(long id, MultipartFile file) {
     UUID uuid = UUID.randomUUID();
     String str = uuid.toString();
-    Product product = productRepository.findById(id);
     Path path =
         Path.of(
-            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/"
-                + product.getTitle(),
+            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
+            "商品" + id,
             str);
     try {
       Files.copy(file.getInputStream(), path);
