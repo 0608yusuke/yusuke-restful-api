@@ -3,6 +3,7 @@ package com.study.skillup.restfulapi.controller;
 import com.study.skillup.restfulapi.entity.Product;
 import com.study.skillup.restfulapi.form.ProductForm;
 import com.study.skillup.restfulapi.service.ProductService;
+import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,12 +22,12 @@ public class ProductController {
   }
 
   @GetMapping()
-  public List<Product> getSelectedByTitle(@RequestParam String title) {
+  public List<Product> searchPluralByTitle(@RequestParam String title) {
     return productService.findByTitle(title);
   }
 
   @GetMapping("/{id}")
-  public Product getById(@PathVariable(value = "id") Long id) {
+  public Product searchById(@PathVariable(value = "id") Long id) {
     return productService.findById(id);
   }
 
@@ -41,7 +42,9 @@ public class ProductController {
   }
 
   @PatchMapping("/{id}/images")
-  public void test(@RequestPart("file") MultipartFile file) {
-    String a;
+  public void registerImg(
+      @PathVariable(value = "id") Long id, @RequestPart("productImage") MultipartFile file)
+      throws IOException {
+    productService.saveImg(id, file);
   }
 }

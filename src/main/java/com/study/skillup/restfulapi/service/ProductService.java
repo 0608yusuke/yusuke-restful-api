@@ -3,10 +3,12 @@ package com.study.skillup.restfulapi.service;
 import com.study.skillup.restfulapi.entity.Product;
 import com.study.skillup.restfulapi.form.ProductForm;
 import com.study.skillup.restfulapi.repository.ProductRepository;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -27,18 +29,28 @@ public class ProductService {
   }
 
   public Product update(long id, ProductForm productForm) {
-    Product updateProduct = productRepository.findById(id);
+    Product update_product = productRepository.findById(id);
 
-    updateProduct.setTitle(productForm.getTitle());
-    updateProduct.setDescription(productForm.getDescription());
-    updateProduct.setPrice(productForm.getPrice().intValue());
-    updateProduct.setUpdateTime(LocalDateTime.now());
+    update_product.setTitle(productForm.getTitle());
+    update_product.setDescription(productForm.getDescription());
+    update_product.setPrice(productForm.getPrice().intValue());
+    update_product.setUpdateTime(LocalDateTime.now());
 
-    return productRepository.save(updateProduct);
+    return productRepository.save(update_product);
   }
 
   public void delete(long id) {
-    Product deleteProduct = productRepository.findById(id);
-    productRepository.delete(deleteProduct);
+    Product deleted_product = productRepository.findById(id);
+    productRepository.delete(deleted_product);
+  }
+
+  public Product saveImg(long id, MultipartFile file) throws IOException {
+    Product storage_img_product = productRepository.findById(id);
+    byte[] change_byte = file.getBytes();
+    String change_string = new String(change_byte);
+
+    storage_img_product.setImage_path(change_string.getBytes());
+
+    return productRepository.save(storage_img_product);
   }
 }
