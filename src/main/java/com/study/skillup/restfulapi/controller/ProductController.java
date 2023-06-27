@@ -1,9 +1,11 @@
 package com.study.skillup.restfulapi.controller;
 
 import com.study.skillup.restfulapi.entity.Product;
+import com.study.skillup.restfulapi.form.FileForm;
 import com.study.skillup.restfulapi.form.ProductForm;
 import com.study.skillup.restfulapi.service.ProductService;
-import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ public class ProductController {
 
   private final ProductService productService;
 
+  @PostMapping()
   public Product register(@RequestBody ProductForm productForm) {
     return productService.register(productForm);
   }
@@ -42,9 +45,9 @@ public class ProductController {
   }
 
   @PatchMapping("/{id}/images")
-  public void registerImg(
-      @PathVariable(value = "id") Long id, @RequestPart("productImage") MultipartFile file)
-      throws IOException {
-    productService.saveImg(id, file);
+  public void registerImg(@PathVariable(value = "id") Long id, @RequestPart("productImage")FileForm fileForm){
+    MultipartFile file = fileForm.getFile();
+    String fileName = file.getOriginalFilename();
+    Path filePath = Paths.get("D:/test1/" + fileName);
   }
 }
