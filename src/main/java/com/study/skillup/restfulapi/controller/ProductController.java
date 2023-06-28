@@ -3,8 +3,10 @@ package com.study.skillup.restfulapi.controller;
 import com.study.skillup.restfulapi.entity.Product;
 import com.study.skillup.restfulapi.form.ProductForm;
 import com.study.skillup.restfulapi.service.ProductService;
+import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -46,5 +48,11 @@ public class ProductController {
       @PathVariable(value = "id") Long id, @RequestPart("productImage") MultipartFile file) {
     productService.createIdFolder(id);
     productService.storageImgFile(id, file);
+  }
+
+  @GetMapping("/{id}/images/{filepath}")
+  public ResponseEntity<byte[]> getProductImage(
+      @PathVariable Long id, @PathVariable String filepath) throws IOException {
+    return productService.searchImageFile(id, filepath);
   }
 }

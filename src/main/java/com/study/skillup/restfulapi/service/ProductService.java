@@ -3,6 +3,7 @@ package com.study.skillup.restfulapi.service;
 import com.study.skillup.restfulapi.entity.Product;
 import com.study.skillup.restfulapi.form.ProductForm;
 import com.study.skillup.restfulapi.repository.ProductRepository;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,6 +12,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -81,5 +88,30 @@ public class ProductService {
     Product img_path_product = productRepository.findById(id);
     img_path_product.setImage_path(str + extension);
     productRepository.save(img_path_product);
+  }
+
+  @Autowired ResourceLoader resourceLoader;
+
+  public ResponseEntity<byte[]> searchImageFile(long id, String filePath) throws IOException {
+    // Resource resource =
+    // resourceLoader.getResource("/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/"+ "商品"+ id+ "/"+ filePath);
+    // InputStream image = resource.getInputStream();
+    // byte[] b = IOUtils.toByteArray(image);
+    File resource =
+        new ClassPathResource(
+            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/"
+                 + "商品"
+                 + id
+                 + "/"
+                 + filePath).getFile();
+
+
+    String line = Files.readString(resource.toPath());
+    byte[] imageFile = line.getBytes();
+
+    HttpHeaders responseHeaders = new HttpHeaders();
+    responseHeaders.setContentType(MediaType.IMAGE_PNG);
+
+    return ResponseEntity.ok().headers(responseHeaders).body(imageFile);
   }
 }
