@@ -5,6 +5,6 @@ spring:
     username: root
   servlet:
     multipart:
-      max-file-size: 1000KB
+      max-file-size: 100KB
 settings:
   extension: jpeg,jpg,png,gif

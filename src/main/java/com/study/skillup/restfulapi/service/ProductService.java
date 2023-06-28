@@ -61,6 +61,7 @@ public class ProductService {
   }
 
   public void storageImgFile(long id, MultipartFile file) {
+
     UUID uuid = UUID.randomUUID();
     String str = uuid.toString();
 
@@ -77,5 +78,8 @@ public class ProductService {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+    Product img_path_product = productRepository.findById(id);
+    img_path_product.setImage_path(str + extension);
+    productRepository.save(img_path_product);
   }
 }

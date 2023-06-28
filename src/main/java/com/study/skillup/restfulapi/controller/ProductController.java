@@ -46,6 +46,5 @@ public class ProductController {
       @PathVariable(value = "id") Long id, @RequestPart("productImage") MultipartFile file) {
     productService.createIdFolder(id);
     productService.storageImgFile(id, file);
-    // productService.createImgPath(id, fileForm);
   }
 }

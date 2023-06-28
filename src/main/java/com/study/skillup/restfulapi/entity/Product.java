@@ -31,7 +31,7 @@ public class Product {
 
   private int price;
 
-  private byte[] image_path;
+  private String image_path;
 
   @CreationTimestamp private LocalDateTime create_time;
 
