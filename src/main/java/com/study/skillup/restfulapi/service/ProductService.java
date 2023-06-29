@@ -86,7 +86,6 @@ public class ProductService {
     img_path_product.setImage_path(str + extension);
     productRepository.save(img_path_product);
   }
-  
 
   public HttpEntity<byte[]> searchImageFile(long id, String filepath) throws IOException {
     String path =
@@ -96,10 +95,12 @@ public class ProductService {
             + "/"
             + filepath;
     File imageData = new File(path);
+    Path path3 = Paths.get(path);
+    Files.probeContentType(path3);
     HttpHeaders headers = new HttpHeaders();
 
     byte[] byteImage = Files.readAllBytes(imageData.toPath());
-    headers.setContentType(MediaType.IMAGE_PNG);
+    headers.setContentType(MediaType.valueOf(Files.probeContentType(path3)));
     headers.setContentLength(byteImage.length);
 
     return new HttpEntity<byte[]>(byteImage, headers);
