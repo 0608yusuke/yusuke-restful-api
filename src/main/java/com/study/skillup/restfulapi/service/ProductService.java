@@ -12,12 +12,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -89,29 +86,22 @@ public class ProductService {
     img_path_product.setImage_path(str + extension);
     productRepository.save(img_path_product);
   }
+  
 
-  @Autowired ResourceLoader resourceLoader;
+  public HttpEntity<byte[]> searchImageFile(long id, String filepath) throws IOException {
+    String path =
+        "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/"
+            + "商品"
+            + id
+            + "/"
+            + filepath;
+    File imageData = new File(path);
+    HttpHeaders headers = new HttpHeaders();
 
-  public ResponseEntity<byte[]> searchImageFile(long id, String filePath) throws IOException {
-    // Resource resource =
-    // resourceLoader.getResource("/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/"+ "商品"+ id+ "/"+ filePath);
-    // InputStream image = resource.getInputStream();
-    // byte[] b = IOUtils.toByteArray(image);
-    File resource =
-        new ClassPathResource(
-            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/"
-                 + "商品"
-                 + id
-                 + "/"
-                 + filePath).getFile();
+    byte[] byteImage = Files.readAllBytes(imageData.toPath());
+    headers.setContentType(MediaType.IMAGE_PNG);
+    headers.setContentLength(byteImage.length);
 
-
-    String line = Files.readString(resource.toPath());
-    byte[] imageFile = line.getBytes();
-
-    HttpHeaders responseHeaders = new HttpHeaders();
-    responseHeaders.setContentType(MediaType.IMAGE_PNG);
-
-    return ResponseEntity.ok().headers(responseHeaders).body(imageFile);
+    return new HttpEntity<byte[]>(byteImage, headers);
   }
 }

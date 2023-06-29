@@ -6,7 +6,7 @@ import com.study.skillup.restfulapi.service.ProductService;
 import java.io.IOException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,7 +51,7 @@ public class ProductController {
   }
 
   @GetMapping("/{id}/images/{filepath}")
-  public ResponseEntity<byte[]> getProductImage(
+  public HttpEntity<byte[]> getProductImage(
       @PathVariable Long id, @PathVariable String filepath) throws IOException {
     return productService.searchImageFile(id, filepath);
   }
