@@ -1,6 +1,8 @@
 package com.study.skillup.restfulapi.controller;
 
 import com.study.skillup.restfulapi.error.ErrorMessage;
+import com.study.skillup.restfulapi.error.ErrorResponse;
+import com.study.skillup.restfulapi.error.NotFoundException;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
@@ -28,10 +31,10 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleHttpRequestMethodNotSupported(
-          HttpRequestMethodNotSupportedException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      HttpRequestMethodNotSupportedException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -39,10 +42,10 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleHttpMediaTypeNotSupported(
-          HttpMediaTypeNotSupportedException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      HttpMediaTypeNotSupportedException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -50,10 +53,10 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleHttpMediaTypeNotAcceptable(
-          HttpMediaTypeNotAcceptableException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      HttpMediaTypeNotAcceptableException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -61,10 +64,10 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleMissingPathVariable(
-          MissingPathVariableException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      MissingPathVariableException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -72,10 +75,10 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleMissingServletRequestParameter(
-          MissingServletRequestParameterException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      MissingServletRequestParameterException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -83,10 +86,10 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleServletRequestBindingException(
-          ServletRequestBindingException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      ServletRequestBindingException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -94,10 +97,10 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleConversionNotSupported(
-          ConversionNotSupportedException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      ConversionNotSupportedException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -105,10 +108,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleTypeMismatch(
-          TypeMismatchException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -116,10 +116,10 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleHttpMessageNotReadable(
-          HttpMessageNotReadableException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      HttpMessageNotReadableException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -127,10 +127,10 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleHttpMessageNotWritable(
-          HttpMessageNotWritableException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      HttpMessageNotWritableException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -138,10 +138,10 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(
-          MethodArgumentNotValidException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      MethodArgumentNotValidException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -149,10 +149,10 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleMissingServletRequestPart(
-          MissingServletRequestPartException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      MissingServletRequestPartException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -160,10 +160,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleBindException(
-          BindException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      BindException ex, HttpHeaders headers, HttpStatus status, WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -171,10 +168,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleNoHandlerFoundException(
-          NoHandlerFoundException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -182,12 +176,21 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
 
   @Override
   protected ResponseEntity<Object> handleAsyncRequestTimeoutException(
-          AsyncRequestTimeoutException ex,
-          HttpHeaders headers,
-          HttpStatus status,
-          WebRequest webRequest) {
+      AsyncRequestTimeoutException ex,
+      HttpHeaders headers,
+      HttpStatus status,
+      WebRequest webRequest) {
     ErrorMessage res = new ErrorMessage();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
+  }
+
+  @ExceptionHandler({NotFoundException.class})
+  public ResponseEntity<Object> handle404(NotFoundException ex, WebRequest request) {
+    HttpHeaders headers = new HttpHeaders();
+    ErrorResponse body = new ErrorResponse("Not Found", "", "");
+    HttpStatus status = HttpStatus.NOT_FOUND;
+
+    return this.handleExceptionInternal(ex, body, headers, status, request);
   }
 }

@@ -41,7 +41,7 @@ public class ProductService {
 
     update_product.setTitle(productForm.getTitle());
     update_product.setDescription(productForm.getDescription());
-    update_product.setPrice(productForm.getPrice().intValue());
+    update_product.setPrice(productForm.getPrice());
     update_product.setUpdateTime(LocalDateTime.now());
 
     return productRepository.save(update_product);
