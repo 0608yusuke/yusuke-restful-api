@@ -13,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
-// @MultipartConfig(location = )
 public class ProductController {
 
   private final ProductService productService;
