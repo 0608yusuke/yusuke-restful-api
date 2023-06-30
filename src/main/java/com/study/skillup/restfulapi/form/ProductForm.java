@@ -9,5 +9,6 @@ public class ProductForm {
 
   private String description;
 
+  
   private Long price;
 }
