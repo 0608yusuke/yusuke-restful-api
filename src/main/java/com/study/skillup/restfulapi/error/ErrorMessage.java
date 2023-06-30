@@ -5,5 +5,7 @@ import lombok.Data;
 @Data
 public class ErrorMessage {
 
-    private String errorMassage;
+  private int status;
+
+  private String errorMassage;
 }

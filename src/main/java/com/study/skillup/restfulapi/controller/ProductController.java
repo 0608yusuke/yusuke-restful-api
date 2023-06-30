@@ -5,6 +5,7 @@ import com.study.skillup.restfulapi.form.ProductForm;
 import com.study.skillup.restfulapi.service.ProductService;
 import java.io.IOException;
 import java.util.List;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class ProductController {
   private final ProductService productService;
 
   @PostMapping()
-  public Product register(@RequestBody ProductForm productForm) {
+  public Product register(@Valid @RequestBody ProductForm productForm) {
     return productService.register(productForm);
   }
 
@@ -50,8 +51,8 @@ public class ProductController {
   }
 
   @GetMapping("/{id}/images/{filepath}")
-  public HttpEntity<byte[]> getProductImage(
-      @PathVariable Long id, @PathVariable String filepath) throws IOException {
+  public HttpEntity<byte[]> getProductImage(@PathVariable Long id, @PathVariable String filepath)
+      throws IOException {
     return productService.searchImageFile(id, filepath);
   }
 }
