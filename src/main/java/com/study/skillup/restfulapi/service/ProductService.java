@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -24,8 +25,12 @@ public class ProductService {
 
   private final ProductRepository productRepository;
 
-  public Product register(ProductForm productForm) {
-    return productRepository.save(Product.register(productForm));
+  public void register(ProductForm productForm) {
+    try {
+      productRepository.save(Product.register(productForm));
+    } catch (DataIntegrityViolationException e) {
+      e.printStackTrace();
+    }
   }
 
   public List<Product> findByTitle(String title) {

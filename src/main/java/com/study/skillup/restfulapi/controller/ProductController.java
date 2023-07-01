@@ -19,8 +19,8 @@ public class ProductController {
   private final ProductService productService;
 
   @PostMapping()
-  public Product register(@Valid @RequestBody ProductForm productForm) {
-    return productService.register(productForm);
+  public void register(@Valid @RequestBody ProductForm productForm) {
+    productService.register(productForm);
   }
 
   @GetMapping()
