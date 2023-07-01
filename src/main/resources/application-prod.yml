@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    password:
+    url: jdbc:mysql://localhost:3306/restful_api
+    username: root
+  servlet:
+    multipart:
+      max-file-size: 100KB　
+settings:
+  extension: jpeg,jpg,png,gif
