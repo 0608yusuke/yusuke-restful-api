@@ -17,7 +17,7 @@ public class Product {
 
     product.setTitle(productForm.getTitle());
     product.setDescription(productForm.getDescription());
-    product.setPrice(productForm.getPrice());
+    product.setPrice(productForm.getPrice().intValue());
     return product;
   }
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-
+  
   List<Product> findByTitleContainingOrderByUpdateTimeDesc(String title);
 
   Product findById(long id);
