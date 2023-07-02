@@ -5,6 +5,7 @@ import com.study.skillup.restfulapi.form.ProductForm;
 import com.study.skillup.restfulapi.repository.ProductRepository;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -12,12 +13,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 @RequiredArgsConstructor
@@ -25,12 +24,17 @@ public class ProductService {
 
   private final ProductRepository productRepository;
 
-  public void register(ProductForm productForm) {
-    try {
-      productRepository.save(Product.register(productForm));
-    } catch (DataIntegrityViolationException e) {
-      e.printStackTrace();
-    }
+  public ResponseEntity<Product> register(
+      ProductForm productForm, UriComponentsBuilder uriBuilder) {
+    Product createdProduct = Product.register(productForm);
+    productRepository.save(createdProduct);
+
+    URI location =
+        uriBuilder.path("api/products/{id}").buildAndExpand(createdProduct.getId()).toUri();
+    HttpHeaders headers = new HttpHeaders();
+    headers.setLocation(location);
+
+    return new ResponseEntity<>(createdProduct, headers, HttpStatus.CREATED);
   }
 
   public List<Product> findByTitle(String title) {

@@ -8,8 +8,10 @@ import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/products")
@@ -19,8 +21,9 @@ public class ProductController {
   private final ProductService productService;
 
   @PostMapping()
-  public void register(@Valid @RequestBody ProductForm productForm) {
-    productService.register(productForm);
+  public ResponseEntity<Product> register(
+      @Valid @RequestBody ProductForm productForm, UriComponentsBuilder uriBuilder) {
+    return productService.register(productForm, uriBuilder);
   }
 
   @GetMapping()
