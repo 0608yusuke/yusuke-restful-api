@@ -92,11 +92,22 @@ public class ProductService {
     }
   }
 
-  public void storageImgFile(long id, MultipartFile file) {
+  public void storageImgFile(long id, MultipartFile file) throws IOException {
+    Product product = productRepository.findById(id);
+    String imageFIlePath = product.getImage_path();
+    if (imageFIlePath != null) {
+      Path filePath =
+          Paths.get(
+              "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
+              "商品" + id,
+              imageFIlePath);
+      if (Files.exists(filePath)) {
+        Files.delete(filePath);
+      }
+    }
 
     UUID uuid = UUID.randomUUID();
-    String str = uuid.toString();
-
+    String stringUuid = uuid.toString();
     String fileName = file.getOriginalFilename();
     String extension = fileName.substring(fileName.lastIndexOf("."));
 
@@ -104,14 +115,10 @@ public class ProductService {
         Path.of(
             "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
             "商品" + id,
-            str + extension);
-    try {
-      Files.copy(file.getInputStream(), path);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+            stringUuid + extension);
+    Files.copy(file.getInputStream(), path);
     Product img_path_product = productRepository.findById(id);
-    img_path_product.setImage_path(str + extension);
+    img_path_product.setImage_path(stringUuid + extension);
     productRepository.save(img_path_product);
   }
 
