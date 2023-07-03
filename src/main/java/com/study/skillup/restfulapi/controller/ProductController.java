@@ -42,7 +42,7 @@ public class ProductController {
   }
 
   @DeleteMapping("/{id}")
-  public void delete(@PathVariable(value = "id") Long id) {
+  public void delete(@PathVariable(value = "id") Long id) throws IOException {
     productService.delete(id);
   }
 

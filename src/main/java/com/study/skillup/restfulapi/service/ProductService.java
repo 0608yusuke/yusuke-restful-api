@@ -56,18 +56,33 @@ public class ProductService {
     return productRepository.save(update_product);
   }
 
-  public void delete(long id) {
+  public void delete(long id) throws IOException {
+    Product product = productRepository.findById(id);
+    String imageFIlePath = product.getImage_path();
+    Path filePath =
+        Paths.get(
+            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
+            "商品" + id,
+            imageFIlePath);
+    Files.delete(filePath);
+
+    Path folderPath =
+        Paths.get(
+            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
+            "商品" + id);
+    Files.deleteIfExists(folderPath);
+
     Product deleted_product = productRepository.findById(id);
     productRepository.delete(deleted_product);
   }
 
   public void createIdFolder(long id) {
     try {
-      Path path =
+      Path folderPath =
           Paths.get(
               "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
               "商品" + id);
-      Files.createDirectory(path);
+      Files.createDirectory(folderPath);
     } catch (IOException e) {
       e.printStackTrace();
     }
