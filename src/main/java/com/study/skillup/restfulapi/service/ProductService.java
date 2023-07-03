@@ -66,13 +66,15 @@ public class ProductService {
               "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
               "商品" + id,
               imageFIlePath);
-      Files.delete(filePath);
+      if (Files.exists(filePath)) {
+        Files.delete(filePath);
 
-      Path folderPath =
-          Paths.get(
-              "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
-              "商品" + id);
-      Files.deleteIfExists(folderPath);
+        Path folderPath =
+            Paths.get(
+                "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
+                "商品" + id);
+        Files.deleteIfExists(folderPath);
+      }
     }
     Product deleted_product = productRepository.findById(id);
     productRepository.delete(deleted_product);
