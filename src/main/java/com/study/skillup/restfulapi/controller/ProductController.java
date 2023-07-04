@@ -29,7 +29,7 @@ public class ProductController {
   }
 
   @GetMapping()
-  public List<Product> searchPluralByTitle(@RequestParam String title) {
+  public ResponseEntity<List<Product>> searchPluralByTitle(@RequestParam String title) {
     return productService.findByTitle(title);
   }
 

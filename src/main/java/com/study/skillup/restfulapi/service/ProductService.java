@@ -37,12 +37,12 @@ public class ProductService {
     return new ResponseEntity<>(createdProduct, headers, HttpStatus.CREATED);
   }
 
-  public List<Product> findByTitle(String title) {
+  public ResponseEntity<List<Product>> findByTitle(String title) {
     List<Product> searchProduct =
         productRepository.findByTitleContainingOrderByUpdateTimeDesc(title);
 
     HttpHeaders headers = new HttpHeaders();
-    return (List<Product>) new ResponseEntity<>(searchProduct, headers, HttpStatus.OK);
+    return new ResponseEntity<>(searchProduct, headers, HttpStatus.OK);
   }
 
   public ResponseEntity<Product> findById(long id, UriComponentsBuilder uriBuilder) {
