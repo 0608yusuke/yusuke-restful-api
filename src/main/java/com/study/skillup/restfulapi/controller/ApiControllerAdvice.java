@@ -1,8 +1,9 @@
 package com.study.skillup.restfulapi.controller;
 
-import com.study.skillup.restfulapi.error.ErrorMessage;
+import com.study.skillup.restfulapi.error.ErrorResponse;
 import org.springframework.beans.ConversionNotSupportedException;
 import org.springframework.beans.TypeMismatchException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
@@ -32,7 +34,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
   }
@@ -43,7 +45,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -55,7 +57,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -67,7 +69,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -79,7 +81,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -91,7 +93,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -103,7 +105,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -112,7 +114,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
   @Override
   protected ResponseEntity<Object> handleTypeMismatch(
       TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -124,7 +126,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -136,7 +138,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -148,7 +150,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -160,7 +162,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -169,7 +171,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
   @Override
   protected ResponseEntity<Object> handleBindException(
       BindException ex, HttpHeaders headers, HttpStatus status, WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -178,7 +180,7 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
   @Override
   protected ResponseEntity<Object> handleNoHandlerFoundException(
       NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
@@ -190,12 +192,18 @@ public class ApiControllerAdvice extends ResponseEntityExceptionHandler {
       HttpHeaders headers,
       HttpStatus status,
       WebRequest webRequest) {
-    ErrorMessage res = new ErrorMessage();
+    ErrorResponse res = new ErrorResponse();
     res.setErrorMassage(ex.getMessage());
     res.setStatus(status.value());
     return super.handleExceptionInternal(ex, res, headers, status, webRequest);
   }
 
-  
-  
+  @ExceptionHandler({ChangeSetPersister.NotFoundException.class})
+  public ResponseEntity<Object> handle404(ChangeSetPersister.NotFoundException ex, WebRequest request) {
+    HttpHeaders headers = new HttpHeaders();
+    ErrorResponse body = new ErrorResponse();
+    HttpStatus status = HttpStatus.NOT_FOUND;
+
+    return this.handleExceptionInternal(ex, body, headers, status, request);
+  }
 }

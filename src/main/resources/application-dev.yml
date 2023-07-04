@@ -11,6 +11,10 @@ spring:
     database: MYSQL
     hibernate:
       ddl-auto: update
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
 settings:
   extension: jpeg,jpg,png,gif
 logging:

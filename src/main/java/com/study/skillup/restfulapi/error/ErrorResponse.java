@@ -3,7 +3,7 @@ package com.study.skillup.restfulapi.error;
 import lombok.Data;
 
 @Data
-public class ErrorMessage {
+public class ErrorResponse {
 
   private int status;
 

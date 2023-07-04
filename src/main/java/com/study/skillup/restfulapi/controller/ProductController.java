@@ -1,6 +1,7 @@
 package com.study.skillup.restfulapi.controller;
 
 import com.study.skillup.restfulapi.entity.Product;
+import com.study.skillup.restfulapi.error.NotFoundException;
 import com.study.skillup.restfulapi.form.ProductForm;
 import com.study.skillup.restfulapi.service.ProductService;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -33,7 +35,11 @@ public class ProductController {
 
   @GetMapping("/{id}")
   public Product searchById(@PathVariable(value = "id") Long id) {
-    return productService.findById(id);
+    try {
+      return productService.findById(id);
+    } catch (MethodArgumentTypeMismatchException e) {
+      throw new NotFoundException(e.getMessage());
+    }
   }
 
   @PutMapping("/{id}")
@@ -48,7 +54,8 @@ public class ProductController {
 
   @PatchMapping(value = "/{id}/images")
   public Product registerImg(
-      @PathVariable(value = "id") Long id, @RequestPart("productImage") MultipartFile file) throws IOException {
+      @PathVariable(value = "id") Long id, @RequestPart("productImage") MultipartFile file)
+      throws IOException {
     productService.createIdFolder(id);
     productService.storageImgFile(id, file);
     return productService.findById(id);

@@ -1,16 +1,18 @@
 package com.study.skillup.restfulapi.form;
 
+import javax.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
 @Data
 public class ProductForm {
 
+  @NotBlank(message = "error.products.required")
   private String title;
 
-  
+  @NotBlank(message = "error.products.required")
   private String description;
 
-  @Range(min=1, max=1000000 )
+  @Range(min = 1, max = 1000000)
   private Integer price;
 }
