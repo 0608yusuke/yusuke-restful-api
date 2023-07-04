@@ -34,9 +34,10 @@ public class ProductController {
   }
 
   @GetMapping("/{id}")
-  public Product searchById(@PathVariable(value = "id") Long id) {
+  public ResponseEntity<Product> searchById(
+      @PathVariable(value = "id") Long id, UriComponentsBuilder uriBuilder) {
     try {
-      return productService.findById(id);
+      return productService.findById(id, uriBuilder);
     } catch (MethodArgumentTypeMismatchException e) {
       throw new NotFoundException(e.getMessage());
     }
@@ -57,8 +58,7 @@ public class ProductController {
       @PathVariable(value = "id") Long id, @RequestPart("productImage") MultipartFile file)
       throws IOException {
     productService.createIdFolder(id);
-    productService.storageImgFile(id, file);
-    return productService.findById(id);
+    return productService.storageImgFile(id, file);
   }
 
   @GetMapping("/{id}/images/{filepath}")

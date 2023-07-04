@@ -38,11 +38,20 @@ public class ProductService {
   }
 
   public List<Product> findByTitle(String title) {
-    return productRepository.findByTitleContainingOrderByUpdateTimeDesc(title);
+    List<Product> searchProduct =
+        productRepository.findByTitleContainingOrderByUpdateTimeDesc(title);
+
+    HttpHeaders headers = new HttpHeaders();
+    return (List<Product>) new ResponseEntity<>(searchProduct, headers, HttpStatus.OK);
   }
 
-  public Product findById(long id) {
-    return productRepository.findById(id);
+  public ResponseEntity<Product> findById(long id, UriComponentsBuilder uriBuilder) {
+    Product searchProduct = productRepository.findById(id);
+    URI location =
+        uriBuilder.path("api/products/{id}").buildAndExpand(searchProduct.getId()).toUri();
+    HttpHeaders headers = new HttpHeaders();
+    headers.setLocation(location);
+    return new ResponseEntity<>(searchProduct, headers, HttpStatus.OK);
   }
 
   public Product update(long id, ProductForm productForm) {
@@ -92,7 +101,7 @@ public class ProductService {
     }
   }
 
-  public void storageImgFile(long id, MultipartFile file) throws IOException {
+  public Product storageImgFile(long id, MultipartFile file) throws IOException {
     Product product = productRepository.findById(id);
     String imageFIlePath = product.getImage_path();
     if (imageFIlePath != null) {
@@ -119,7 +128,7 @@ public class ProductService {
     Files.copy(file.getInputStream(), path);
     Product img_path_product = productRepository.findById(id);
     img_path_product.setImage_path(stringUuid + extension);
-    productRepository.save(img_path_product);
+    return productRepository.save(img_path_product);
   }
 
   public HttpEntity<byte[]> searchImageFile(long id, String filepath) throws IOException {
