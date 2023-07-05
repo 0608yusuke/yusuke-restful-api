@@ -12,13 +12,13 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Table(name = "restful_api")
 public class Product {
 
-  public static Product register(ProductForm productForm) {
-    Product product = new Product();
+  public static Product of(ProductForm productForm) {
+    Product insertion_product_form = new Product();
 
-    product.setTitle(productForm.getTitle());
-    product.setDescription(productForm.getDescription());
-    product.setPrice(productForm.getPrice().intValue());
-    return product;
+    insertion_product_form.setTitle(productForm.getTitle());
+    insertion_product_form.setDescription(productForm.getDescription());
+    insertion_product_form.setPrice(productForm.getPrice().intValue());
+    return insertion_product_form;
   }
 
   @Id

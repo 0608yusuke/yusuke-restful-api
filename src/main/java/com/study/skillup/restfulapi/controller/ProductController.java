@@ -1,7 +1,6 @@
 package com.study.skillup.restfulapi.controller;
 
 import com.study.skillup.restfulapi.entity.Product;
-import com.study.skillup.restfulapi.error.NotFoundException;
 import com.study.skillup.restfulapi.form.ProductForm;
 import com.study.skillup.restfulapi.service.ProductService;
 import java.io.IOException;
@@ -11,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,46 +21,43 @@ public class ProductController {
   private final ProductService productService;
 
   @PostMapping()
-  public ResponseEntity<Product> register(
+  public ResponseEntity<Product> registerProduct(
       @Valid @RequestBody ProductForm productForm, UriComponentsBuilder uriBuilder) {
-    return productService.register(productForm, uriBuilder);
+    return productService.registerProduct(productForm, uriBuilder);
   }
 
   @GetMapping()
-  public ResponseEntity<List<Product>> searchPluralByTitle(@RequestParam String title) {
-    return productService.findByTitle(title);
+  public ResponseEntity<List<Product>> searchProductByTitle(@RequestParam String title) {
+    return productService.searchProductsByTitle(title);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Product> searchById(
+  public ResponseEntity<Product> searchProductById(
       @PathVariable(value = "id") Long id, UriComponentsBuilder uriBuilder) {
-    try {
-      return productService.findById(id, uriBuilder);
-    } catch (MethodArgumentTypeMismatchException e) {
-      throw new NotFoundException(e.getMessage());
-    }
+    return productService.searchProductById(id, uriBuilder);
   }
 
   @PutMapping("/{id}")
-  public Product update(@PathVariable(value = "id") Long id, @RequestBody ProductForm productForm) {
-    return productService.update(id, productForm);
+  public ResponseEntity<Product> updateProduct(
+      @PathVariable(value = "id") Long id, @RequestBody ProductForm productForm) {
+    return productService.updateProduct(id, productForm);
   }
 
   @DeleteMapping("/{id}")
-  public void delete(@PathVariable(value = "id") Long id) throws IOException {
-    productService.delete(id);
+  public void deleteProduct(@PathVariable(value = "id") Long id) throws IOException {
+    productService.deleteProduct(id);
   }
 
   @PatchMapping(value = "/{id}/images")
-  public Product registerImg(
+  public Product updateProductImg(
       @PathVariable(value = "id") Long id, @RequestPart("productImage") MultipartFile file)
       throws IOException {
-    productService.createIdFolder(id);
-    return productService.storageImgFile(id, file);
+    productService.createProductIdFolder(id);
+    return productService.storeImgFile(id, file);
   }
 
   @GetMapping("/{id}/images/{filepath}")
-  public HttpEntity<byte[]> getProductImage(@PathVariable Long id, @PathVariable String filepath)
+  public HttpEntity<byte[]> searchProductImage(@PathVariable Long id, @PathVariable String filepath)
       throws IOException {
     return productService.searchImageFile(id, filepath);
   }
