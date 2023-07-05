@@ -93,7 +93,9 @@ public class ProductService {
         Paths.get(
             "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
             "商品" + id);
-    Files.createDirectory(folder_path);
+    if (Files.notExists(folder_path)) {
+      Files.createDirectory(folder_path);
+    }
   }
 
   public Product storeImgFile(long id, MultipartFile file) throws IOException {
