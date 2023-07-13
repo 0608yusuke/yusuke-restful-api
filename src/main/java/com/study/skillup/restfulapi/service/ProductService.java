@@ -71,17 +71,11 @@ public class ProductService {
     String image_path_to_string = elimination_product.getImage_path();
     if (image_path_to_string != null) {
       Path file_path =
-          Paths.get(
-              "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
-              "商品" + id,
-              image_path_to_string);
+          Paths.get("src/main/resources/static/images", "商品" + id, image_path_to_string);
       if (Files.exists(file_path)) {
         Files.delete(file_path);
 
-        Path folder_path =
-            Paths.get(
-                "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
-                "商品" + id);
+        Path folder_path = Paths.get("src/main/resources/static/images", "商品" + id);
         Files.deleteIfExists(folder_path);
       }
     }
@@ -89,10 +83,7 @@ public class ProductService {
   }
 
   public void createProductIdFolder(long id) throws IOException {
-    Path folder_path =
-        Paths.get(
-            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
-            "商品" + id);
+    Path folder_path = Paths.get("src/main/resources/static/images", "商品" + id);
     if (Files.notExists(folder_path)) {
       Files.createDirectory(folder_path);
     }
@@ -103,10 +94,7 @@ public class ProductService {
     String image_fIle_path_to_string = obtaining_product_img_path.getImage_path();
     if (image_fIle_path_to_string != null) {
       Path file_path =
-          Paths.get(
-              "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
-              "商品" + id,
-              image_fIle_path_to_string);
+          Paths.get("src/main/resources/static/images", "商品" + id, image_fIle_path_to_string);
       if (Files.exists(file_path)) {
         Files.delete(file_path);
       }
@@ -118,10 +106,7 @@ public class ProductService {
     String extension = file_name.substring(file_name.lastIndexOf("."));
 
     Path img_file_path =
-        Path.of(
-            "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/",
-            "商品" + id,
-            uuid_to_string + extension);
+        Path.of("src/main/resources/static/images", "商品" + id, uuid_to_string + extension);
     Files.copy(file.getInputStream(), img_file_path);
     Product img_path_product = productRepository.findById(id);
     img_path_product.setImage_path(uuid_to_string + extension);

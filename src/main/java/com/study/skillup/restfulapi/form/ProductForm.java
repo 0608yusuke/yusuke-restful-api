@@ -11,7 +11,7 @@ public class ProductForm {
 
   @Autowired private MessageSource messageSource;
 
-  @NotBlank(message = "{error.products.required}")
+  @NotBlank(message = "error.products.required")
   private String title;
 
   @NotBlank(message = "{error.products.required}")
