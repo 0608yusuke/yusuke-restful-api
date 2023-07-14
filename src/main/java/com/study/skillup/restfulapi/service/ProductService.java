@@ -3,7 +3,6 @@ package com.study.skillup.restfulapi.service;
 import com.study.skillup.restfulapi.entity.Product;
 import com.study.skillup.restfulapi.form.ProductForm;
 import com.study.skillup.restfulapi.repository.ProductRepository;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
@@ -114,19 +113,12 @@ public class ProductService {
   }
 
   public HttpEntity<byte[]> searchImageFile(long id, String filepath) throws IOException {
-    String img_path_to_string =
-        "/Users/yuusuke/study/skillup/yusuke-restful-api/src/main/resources/static/images/"
-            + "商品"
-            + id
-            + "/"
-            + filepath;
-    File image_file = new File(img_path_to_string);
-    Path img_path = Paths.get(img_path_to_string);
-    Files.probeContentType(img_path);
+    Path img_file_path = Paths.get("src/main/resources/static/images", "商品" + id, filepath);
+    Files.probeContentType(img_file_path);
     HttpHeaders headers = new HttpHeaders();
 
-    byte[] image_file_to_byte = Files.readAllBytes(image_file.toPath());
-    headers.setContentType(MediaType.valueOf(Files.probeContentType(img_path)));
+    byte[] image_file_to_byte = Files.readAllBytes(img_file_path);
+    headers.setContentType(MediaType.valueOf(Files.probeContentType(img_file_path)));
     headers.setContentLength(image_file_to_byte.length);
 
     return new HttpEntity<byte[]>(image_file_to_byte, headers);
