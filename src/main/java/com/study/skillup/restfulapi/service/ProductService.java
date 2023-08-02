@@ -10,8 +10,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -122,5 +125,12 @@ public class ProductService {
     headers.setContentLength(image_file_to_byte.length);
 
     return new HttpEntity<byte[]>(image_file_to_byte, headers);
+  }
+
+  @Autowired MessageSource messageSource;
+
+  public HttpEntity test() {
+    String msg = messageSource.getMessage("hello", null, Locale.JAPANESE);
+    return new HttpEntity(msg);
   }
 }

@@ -61,4 +61,9 @@ public class ProductController {
       throws IOException {
     return productService.searchImageFile(id, filepath);
   }
+
+  @GetMapping("/test")
+  public void test() {
+    productService.test();
+  }
 }

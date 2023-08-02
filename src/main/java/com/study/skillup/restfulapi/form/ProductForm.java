@@ -1,5 +1,6 @@
 package com.study.skillup.restfulapi.form;
 
+import java.util.Locale;
 import javax.validation.constraints.NotBlank;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
@@ -10,8 +11,9 @@ import org.springframework.context.MessageSource;
 public class ProductForm {
 
   @Autowired private MessageSource messageSource;
+  String msg = messageSource.getMessage("hello", null, Locale.JAPANESE);
 
-  @NotBlank(message = "error.products.required")
+  @NotBlank(message = "aaa")
   private String title;
 
   @NotBlank(message = "{error.products.required}")
