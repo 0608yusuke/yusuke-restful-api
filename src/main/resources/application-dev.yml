@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    password:
+    url: jdbc:mysql://localhost:3306/restful_api
+    username: root
+  servlet:
+    multipart:
+      max-file-size: 100KB　
+  jpa:
+    show-sql: true
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+  messages:
+    basename: messages
+settings:
+  extension: jpeg,jpg,png,gif
+logging:
+  level:
+    root: INFO
+    org:
+      springframework.web: INFO
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace
+          EnumType: trace
+          SQL: debug
