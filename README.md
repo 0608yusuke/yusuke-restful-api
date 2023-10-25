@@ -1,5 +1,14 @@
 # restfulApi
 商品の登録、変更、検索、削除を行うAPI
+# 使用技術
+- Spring boot
+- JAVA
+- Mysql
+- JPA
+- lombok
+- Postman
+  開発環境
+- intelliJ
 # 機能
 - 商品の名前、説明文、価格を登録する
 - 各商品に商品画像を登録し、取得できる
