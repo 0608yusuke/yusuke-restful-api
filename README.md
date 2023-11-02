@@ -20,6 +20,9 @@
 ![スクリーンショット 2023-11-02 12 20 36](https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/450e7ef1-a817-4a95-b7d5-dd9d11502769)
 
 - 登録した商品の名前、説明文、価格を変更できる
+
+![スクリーンショット 2023-11-02 15 03 28](https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/f3a7d602-5cd6-4e5e-ba28-7022512337f7)
+
 - 商品名から商品を検索することができる
 - 商品IDでも商品を検索することができる
 
