@@ -12,12 +12,14 @@
 # 機能
 - 商品の名前、説明文、価格を登録する
 
-![スクリーンショット 2023-11-02 11 43 22](https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/b30c09c5-9b83-43df-b656-ff799da1eec1)
+<img src="https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/b30c09c5-9b83-43df-b656-ff799da1eec1" width="640px">
 
 - 各商品に商品画像を登録し、取得できる
 
-![スクリーンショット 2023-11-02 12 17 29](https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/9995a56d-4d92-48a5-9e8b-caa8572e798b)
-![スクリーンショット 2023-11-02 12 20 36](https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/450e7ef1-a817-4a95-b7d5-dd9d11502769)
+<p>
+<img src="https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/9995a56d-4d92-48a5-9e8b-caa8572e798b" width="640px">
+<img src="https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/450e7ef1-a817-4a95-b7d5-dd9d11502769" width="640px">
+</p>
 
 - 登録した商品の名前、説明文、価格を変更できる
 
