@@ -17,18 +17,18 @@
 - 各商品に商品画像を登録し、取得できる
 
 <p>
-<img src="https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/9995a56d-4d92-48a5-9e8b-caa8572e798b" width="640px">
-<img src="https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/450e7ef1-a817-4a95-b7d5-dd9d11502769" width="640px">
+  <img src="https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/9995a56d-4d92-48a5-9e8b-caa8572e798b" width="500px">
+  <img src="https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/450e7ef1-a817-4a95-b7d5-dd9d11502769" width="500px">
 </p>
 
 - 登録した商品の名前、説明文、価格を変更できる
 
-![スクリーンショット 2023-11-02 15 03 28](https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/f3a7d602-5cd6-4e5e-ba28-7022512337f7)
+  <img src="https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/f3a7d602-5cd6-4e5e-ba28-7022512337f7" width="620px">
 
 - 商品名から商品を検索することができる
 - 商品IDでも商品を検索することができる
 
-![スクリーンショット 2023-11-02 12 07 07](https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/886c7ad6-2828-4258-ad57-513bc4224f21)
+  <img src="https://github.com/0608yusuke/yusuke-restful-api/assets/121723117/886c7ad6-2828-4258-ad57-513bc4224f21" width="620px">
 
 - 商品をDBから削除することができる
 # 使用環境
